@@ -2,7 +2,7 @@ import Navbar from '../../components/navbar/Navbar'
 import Footer from '../../components/footer/Footer'
 import PostPage from '../../components/postpage/PostPage'
 
-const BlogPage = () => {
+const BlogPage = (props) => {
     return (
         <div>
             <Navbar />

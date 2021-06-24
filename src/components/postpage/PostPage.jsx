@@ -1,16 +1,30 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Posts } from '../../dummyData' 
 
-const PostPage = (props) => {
-    console.log(props)
+const PostPage = () => {
+    const postId = useParams()
+    const [ post, setPosts ] = useState({})
+    //const post = Posts.filter(p => p.id === parseInt(postId.id))[0]
+    useEffect(async() => {
+        const fetchPost = async () => {
+            const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${postId.id}`)
+            const data = await res.json()
+            return data
+        }
+
+        const p = await fetchPost()
+        setPosts(p) 
+    })
     return (
         <>
             <div className="row">
-                <div className="col-lg-10 offset-lg-1">
-                <img src="assets/3.jpg" className="img-fluid" alt="" />
-                <h2>My first post</h2>
-                <p>01.01.2021</p>
+                <div className="col-lg-10 offset-lg-1 mt-3">
+                <img src={'http://localhost:3000/assets/' + "5.png"} className="img-fluid" alt="" />
+                <h2>{post.title}</h2>
+                <p>{post.date}</p>
                 <hr />
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis expedita, exercitationem rem in ex tempore deleniti. Eum animi praesentium quos exercitationem velit! Accusamus voluptatem distinctio a commodi. Quos, voluptate minus!</p>
+                <p> {post.body} </p>
                 </div>
             </div>
         </>
